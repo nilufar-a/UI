@@ -1,0 +1,19 @@
+
+$zero: 10px;
+
+
+
+.test{
+    
+
+    color: red;
+    background-color: black;
+    margin: $zero;
+    padding: $zero;
+
+
+    .secondClass{
+
+        background: red;
+    }
+}
