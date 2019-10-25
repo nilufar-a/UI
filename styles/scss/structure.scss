@@ -1,25 +1,3 @@
-//@import "scss/structure.scss";
-
-
-.test{
-    color: red;
-    background-color: black;
-
-
-    .secondClass{
-
-        background: red;
-    }
-}
-
-.title{
-    display: block;
-    background: #888888;
-    padding: 20px;
-}
-
-
-
 
 fld {
     display: block;
@@ -30,7 +8,7 @@ elem{
 }
 
 view {
-    display: block;
+    display: block !important;
     width: 100% !important;
     height: 100% !important;
     margin: 0 !important;
@@ -39,6 +17,7 @@ view {
 
 view_container{
     display: block !important;
+    background-color: red;
     width: 100%;
     position: relative;
     height: 100%;

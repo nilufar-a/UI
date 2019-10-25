@@ -1,45 +1,124 @@
 <html>
-    <head>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="styles/styles.css">
-        <script>
 
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/styles.min.css">
+    <script>
+        $(document).ready(function () {
+            var fld_data = { test_fld: { name: "Daniil" } };
+            var elems = [];
+            var flds = []
+            var currentView = "b";
+            var views = []
+            var changingview = false;
+            CollectElems();
+            CollectFlds();
+            CollectViews();
+            updateAllfields();
 
-            
-		    jQuery(document).ready(function(){
+            ChangeView("a");//demo
 
-				var elems = [];
+            var list = [{ Test: '1' }, { Test: '2' }, { Test: '3' }];
+            displayList(list, "test_elem");
 
-				function fillelems(){
-					$('elem').each(function() {
-						let key = $(this).attr(name);
-						elem[key] = $(this).html();
-						$(this).remove();
-					});
-				}
+            function CollectElems() {
+                $('elem').each(function () {
+                    let key = $(this).attr("name");
+                    elems[key] = { html: $(this).html(), container: $(this).parent() };;
+                    $(this).remove();
+                });
+            }
 
-                var list = ['1', '2', '3']
+            function CollectFlds() {
+                $('fld').each(function () {
+                    let key = $(this).attr("name");
+                    flds[key] = { html: $(this).html(), container: $(this).parent() };
+                });
+            }
 
-                var html = $('#elem').html();
+            function CollectViews() {
+                $('view').each(function () {
+                    let key = $(this).attr("name");
+                    views[key] = { view: $(this), container: $(this).parent() };
+                    if (key != currentView) {
+                        $(this).hide(0);
+                        console.log(key);
+                    }
+                });
+            }
+
+            function ChangeView(viewName) {
+                if (views[viewName] != null && viewName != currentView && !changingview) {
+                    changingview = true;
+                    views[currentView].view.hide(500, function () {
+                        views[viewName].view.show(500, function () {
+                            currentView = viewName;
+                            currentView = false;
+                        });
+                    });
+                }
+            }
+
+            function displayList(data, elemName) {
+                if (Array.isArray(data)) {
                     let retHtml = "";
-
-                    list.forEach(element => {
-                        let line = html
-                        line = line.replace("%Test%", element);
+                    data.forEach(row => {
+                        let line = elems[elemName].html;
+                        line = fillPlaceholders(line, row);
                         retHtml += line;
                     });
-                    $('#elem').html(retHtml);
-            })
-        </script>
-    </head>
+                    elems[elemName].container.html(retHtml);
+                }
+            }
+
+            function updateAllfields() {
+                $('fld').each(function () {
+                    let key = $(this).attr("name");
+                    let html = flds[key].html;
+                    html = fillPlaceholders(html, fld_data[key]);
+                    $(this).html(html);
+                });
+            }
+
+            function fillPlaceholders(html, data) {
+                let keys = Object.keys(data);
+                keys.forEach(key => {
+                    let value = data[key];
+                    html = html.replace("%" + key + "%", value);
+                });
+                return html;
+            }
+        })
+    </script>
+</head>
 
 
-    <body>
-        <elem  id='elem' name="test">
-            <div class="test"> %Test% </div>
-        </elem>
-    </body>
+<body>
+    <view_container>
+        <view name="a" style="height: 10000px;">
+            <div class="elem_container" id="elem_container_demo">
+                <elem name="test_elem">
+                    <div class="test"> %Test% </div>
+                </elem>
+            </div>
+            <fld name="test_fld" class="title">
+                your name is "%name%"
+            </fld>
+        </view>
+        <view name="b">
+            <h1>Splash screeen</h1>
+        </view>
+    </view_container>
+
+
+</body>
+
 </html>
