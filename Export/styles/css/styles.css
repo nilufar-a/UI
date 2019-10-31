@@ -11,7 +11,7 @@ elem {
 }
 
 view {
-  display: block !important;
+  display: none;
   width: 100% !important;
   height: 100% !important;
   margin: 0 !important;
