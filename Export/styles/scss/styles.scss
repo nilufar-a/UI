@@ -1,0 +1,21 @@
+@import "./elements.scss";
+@import "./main_menu.scss";
+
+
+.test{
+    color: red;
+    background-color: black;
+
+
+    .secondClass{
+
+        background: red;
+    }
+}
+
+.title{
+    display: block;
+    background: #888888;
+    padding: 20px;
+}
+

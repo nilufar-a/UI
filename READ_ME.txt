@@ -1,3 +1,11 @@
+For development:
+- use "VS Code"
+- insatll node-js
+- run the command below to compile scss!
+    "npm run scss" //this script is scanning for files in the scc
+    "npm run scssDebug"
+
+
 Documentation:
 
 
