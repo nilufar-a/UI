@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass -r .\\Export\\styles\\scss\\ --output-style compressed --importer .\\node_modules\\node-sass-import-once\\index.js --output .\\Export\\styles\\css",
-    "scssDebug": "node-sass -r .\\Export\\styles\\scss\\ --output-style expanded --importer .\\node_modules\\node-sass-import-once\\index.js --output .\\Export\\styles\\css"
+    "scss": "node-sass -w .\\Export\\styles\\scss\\ --output-style compressed --importer .\\node_modules\\node-sass-import-once\\index.js --output .\\Export\\styles\\css",
+    "scssDebug": "node-sass -w .\\Export\\styles\\scss\\ --output-style expanded --importer .\\node_modules\\node-sass-import-once\\index.js --output .\\Export\\styles\\css"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/nilufer454/UI#readme",
   "dependencies": {
     "node-sass": "^4.13.0",
-    "node-sass-import-once": "^1.2.0"
+    "node-sass-import-once": "^1.2.0",
+    "npm": "^6.13.0"
   }
 }

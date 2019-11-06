@@ -12,11 +12,16 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/css/styles.css">
     <script>
+        // minimum aspect ratio
+        const ASPECT_RATIO_VERTICAL = 3;
+        const ASPECT_RATIO_HOEIZONTAL = 4;
+
+
         $(document).ready(function () {
             var fld_data = { test_fld: { name: "Daniil" } };
             var elems = [];
             var flds = []
-            var currentView = "b";
+            var currentView = "game";
             var views = []
             var changingview = false;
             CollectElems();
@@ -24,7 +29,9 @@
             CollectViews();
             updateAllfields();
 
-            ChangeView("a");//demo
+            ChangeView("game");//demo
+            buildBoards(10, 10);
+
 
             var list = [{ Test: '1' }, { Test: '2' }, { Test: '3' }];
             displayList(list, "test_elem");
@@ -50,7 +57,6 @@
                     views[key] = { view: $(this), container: $(this).parent() };
                     if (key != currentView) {
                         $(this).hide(0);
-                        console.log(key);
                     }
                 });
             }
@@ -96,13 +102,32 @@
                 });
                 return html;
             }
+
+
+            function buildBoards(height, width) {
+                ret = "";
+                for (r = 0; r < height; r++) {
+                    ret += '<tr class="board_row">';
+                    for (i = 0; i < width; i++) {
+                        ret += '<td class="board_cell" id="bc_x' + i + 'y' + r + '" >G</td>'
+                    }
+                    ret += '</tr>'
+                }
+                $(".board").html(ret);
+            }
+
+            function onResize() {
+                if ($("#view_container").height() * ASPECT_RATIO_HOEIZONTAL > $("#view_container").width() * ASPECT_RATIO_VERTICAL)
+                    alert("Resize your windoe such that the width is noticebly greater than height")
+                $(".board").width($(".board").height());
+            }
         })
     </script>
 </head>
 
 
 <body>
-    <view_container>
+    <view_container id="view_container">
         <view name="a">
             <div class="elem_container" id="elem_container_demo">
                 <elem name="test_elem">
@@ -115,6 +140,11 @@
         </view>
         <view name="b">
             <h1>Splash screeen</h1>
+        </view>
+        <view name="game">
+            <table id="game-board" class="board">
+
+            </table>
         </view>
     </view_container>
 
