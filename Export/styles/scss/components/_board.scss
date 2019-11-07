@@ -1,0 +1,31 @@
+@import "./__imports.scss";
+
+$BOARD_HEIGHT_percent: 50%;
+.board {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	position: relative;
+	align-items: center;
+	align-content: center;
+	flex-direction: row;
+	justify-content: center;
+
+	.board_table {
+		width: auto;
+		height: $BOARD_HEIGHT_percent;
+		margin: auto;
+
+		.board_row {
+			padding: 0;
+			margin: 0;
+
+			.board_cell {
+				padding: 0;
+				margin: 0;
+				width: auto;
+				height: auto;
+			}
+		}
+	}
+}

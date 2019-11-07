@@ -3,7 +3,7 @@ For development:
 - insatll node-js
 - run the command below to compile scss!
     "npm run scss" //this script is scanning for files in the scc
-    "npm run scssDebug"
+    "npm run scssFianl"
 
 
 Documentation:

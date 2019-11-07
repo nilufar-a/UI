@@ -1,0 +1,11 @@
+@import "./_variables.scss";
+
+@mixin margin_v($val) {
+	margin-top: $val;
+	margin-bottom: $val;
+}
+
+@mixin margin_h($val) {
+	margin-right: $val;
+	margin-left: $val;
+}

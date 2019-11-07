@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass -w .\\Export\\styles\\scss\\ --output-style compressed --importer .\\node_modules\\node-sass-import-once\\index.js --output .\\Export\\styles\\css",
-    "scssDebug": "node-sass -w .\\Export\\styles\\scss\\ --output-style expanded --importer .\\node_modules\\node-sass-import-once\\index.js --output .\\Export\\styles\\css"
+    "scssTest": "node-sass -r .\\Export\\styles\\scss -w .\\Export\\styles\\scss --importer node_modules/node-sass-once-importer/dist/cli.js --output-style expanded --output .\\Export\\styles\\css",
+    "scssFinal": "node-sass -w .\\Export\\styles\\scss --output-style compressed --importer node_modules/node-sass-once-importer/dist/cli.js --output .\\Export\\styles\\css",
+    "scss": "node-sass -w .\\Export\\styles\\scss --output-style expanded --importer node_modules/node-sass-once-importer/dist/cli.js --output .\\Export\\styles\\css"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "dependencies": {
     "node-sass": "^4.13.0",
     "node-sass-import-once": "^1.2.0",
+    "node-sass-once-importer": "^5.3.2",
     "npm": "^6.13.0"
   }
 }
