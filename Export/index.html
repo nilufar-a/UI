@@ -11,6 +11,8 @@
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="styles/css/styles.css">
+	<style id="board_styles">
+	</style>
 	<script>
 		// minimum aspect ratio
 		const ASPECT_RATIO_VERTICAL = 3;
@@ -24,14 +26,20 @@
 			var currentView = "game";
 			var views = []
 			var changingview = false;
+
+			var boardDims = { width: 64, height: 64 };
+
 			CollectElems();
 			CollectFlds();
 			CollectViews();
 			updateAllfields();
 
 			ChangeView("game");//demo
-			buildBoards(10, 10);
+			buildBoards();
 
+			$(window).resize(function () {
+				onResize();
+			});
 
 
 			var list = [{ Test: '1' }, { Test: '2' }, { Test: '3' }];
@@ -105,12 +113,12 @@
 			}
 
 
-			function buildBoards(height, width) {
+			function buildBoards() {
 				ret = "";
-				for (r = 0; r < height; r++) {
+				for (r = 0; r < boardDims.height; r++) {
 					ret += '<tr class="board_row">';
-					for (i = 0; i < width; i++) {
-						ret += '<td class="board_cell" id="bc_x' + i + 'y' + r + '" >G</td>'
+					for (i = 0; i < boardDims.width; i++) {
+						ret += '<td class="board_cell" id="bc_x' + i + 'y' + r + '" >&#x2501</td>'
 					}
 					ret += '</tr>'
 				}
@@ -119,9 +127,18 @@
 			}
 
 			function onResize() {
-				if ($("#view_container").height() * ASPECT_RATIO_HOEIZONTAL > $("#view_container").width() * ASPECT_RATIO_VERTICAL)
-					alert("Resize your windoe such that the width is noticebly greater than height")
-				$(".board_table").width($(".board_table").height());
+				if (window.innerHeight * ASPECT_RATIO_HOEIZONTAL > window.innerWidth * ASPECT_RATIO_VERTICAL)
+					alert("Resize your window such that the width is noticebly greater than height.\n Otherwise area of the screen will become unuseable")
+				let cellDim = (window.innerHeight / boardDims.height) * 0.8;
+
+				let board_cell =
+					".board_cell{\n" +
+					"width: " + cellDim + "px;\n" +
+					"font-size: " + (cellDim * 1) + "px;\n" +
+					"line-height: " + cellDim + "px;\n" +
+					"height: " + cellDim + "px;\n" +
+					"}";
+				$("#board_styles").html(board_cell);
 			}
 		})
 	</script>
@@ -140,6 +157,11 @@
 				your name is "%name%"
 			</fld>
 		</view>
+
+		<view name="main_menu">
+			//TODO
+		</view>
+
 		<view name="b">
 			<h1>Splash screeen</h1>
 		</view>

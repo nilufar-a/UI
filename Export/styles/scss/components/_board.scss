@@ -23,8 +23,8 @@ $BOARD_HEIGHT_percent: 50%;
 			.board_cell {
 				padding: 0;
 				margin: 0;
-				width: auto;
-				height: auto;
+				border: 1px solid grey;
+				text-align: center;
 			}
 		}
 	}
