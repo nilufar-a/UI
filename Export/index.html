@@ -12,141 +12,25 @@
 		crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="styles/css/styles.css">
 	<style id="board_styles">
+		/*generated with script for global styling*/
 	</style>
 	<script>
-		// minimum aspect ratio
-		const ASPECT_RATIO_VERTICAL = 3;
-		const ASPECT_RATIO_HOEIZONTAL = 3;
-
-
-		$(document).ready(function () {
-			var fld_data = { test_fld: { name: "Daniil" } };
-			var elems = [];
-			var flds = []
-			var currentView = "game";
-			var views = []
-			var changingview = false;
-
-			var boardDims = { width: 64, height: 64 };
-
-			CollectElems();
-			CollectFlds();
-			CollectViews();
-			updateAllfields();
-
-			ChangeView("game");//demo
-			buildBoards();
-
-			$(window).resize(function () {
-				onResize();
-			});
-
-
-			var list = [{ Test: '1' }, { Test: '2' }, { Test: '3' }];
-			displayList(list, "test_elem");
-
-			function CollectElems() {
-				$('elem').each(function () {
-					let key = $(this).attr("name");
-					elems[key] = { html: $(this).html(), container: $(this).parent() };;
-					$(this).remove();
-				});
-			}
-
-			function CollectFlds() {
-				$('fld').each(function () {
-					let key = $(this).attr("name");
-					flds[key] = { html: $(this).html(), container: $(this).parent() };
-				});
-			}
-
-			function CollectViews() {
-				$('view').each(function () {
-					let key = $(this).attr("name");
-					views[key] = { view: $(this), container: $(this).parent() };
-					if (key != currentView) {
-						$(this).hide(0);
-					}
-				});
-			}
-
-			function ChangeView(viewName) {
-				if (views[viewName] != null && viewName != currentView && !changingview) {
-					changingview = true;
-					views[currentView].view.hide(500, function () {
-						views[viewName].view.show(500, function () {
-							currentView = viewName;
-							currentView = false;
-						});
-					});
-				}
-			}
-
-			function displayList(data, elemName) {
-				if (Array.isArray(data)) {
-					let retHtml = "";
-					data.forEach(row => {
-						let line = elems[elemName].html;
-						line = fillPlaceholders(line, row);
-						retHtml += line;
-					});
-					elems[elemName].container.html(retHtml);
-				}
-			}
-
-			function updateAllfields() {
-				$('fld').each(function () {
-					let key = $(this).attr("name");
-					let html = flds[key].html;
-					html = fillPlaceholders(html, fld_data[key]);
-					$(this).html(html);
-				});
-			}
-
-			function fillPlaceholders(html, data) {
-				let keys = Object.keys(data);
-				keys.forEach(key => {
-					let value = data[key];
-					html = html.replace("%" + key + "%", value);
-				});
-				return html;
-			}
-
-
-			function buildBoards() {
-				ret = "";
-				for (r = 0; r < boardDims.height; r++) {
-					ret += '<tr class="board_row">';
-					for (i = 0; i < boardDims.width; i++) {
-						ret += '<td class="board_cell" id="bc_x' + i + 'y' + r + '" >&#x2501</td>'
-					}
-					ret += '</tr>'
-				}
-				$(".board_table").html(ret);
-				onResize();
-			}
-
-			function onResize() {
-				if (window.innerHeight * ASPECT_RATIO_HOEIZONTAL > window.innerWidth * ASPECT_RATIO_VERTICAL)
-					alert("Resize your window such that the width is noticebly greater than height.\n Otherwise area of the screen will become unuseable")
-				let cellDim = (window.innerHeight / boardDims.height) * 0.8;
-
-				let board_cell =
-					".board_cell{\n" +
-					"width: " + cellDim + "px;\n" +
-					"font-size: " + (cellDim * 1) + "px;\n" +
-					"line-height: " + cellDim + "px;\n" +
-					"height: " + cellDim + "px;\n" +
-					"}";
-				$("#board_styles").html(board_cell);
-			}
-		})
+		//embeded script
 	</script>
+	<!-- import object definitions (please do nt alter the order, but it should not matter)-->
+	<script src="./scripts/ViewControl.js"></script>
+	<script src="./scripts/Board.js"></script>
+
+
+	<script src="./scripts/Main.js">//import last, contains the logic</script>
+	<style>
+		/*embeded styles*/
+	</style>
 </head>
 
 
 <body>
-	<view_container id="view_container">
+	<view_container id="view_container" class="hide_children_until_load_complete">
 		<view name="a">
 			<div class="elem_container" id="elem_container_demo">
 				<elem name="test_elem">
@@ -162,7 +46,7 @@
 			//TODO
 		</view>
 
-		<view name="b">
+		<view name="splash">
 			<h1>Splash screeen</h1>
 		</view>
 		<view name="game">
@@ -171,6 +55,26 @@
 
 				</table>
 			</div>
+		</view>
+		<view name="login">
+			<form id="login_form">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Email address</label>
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+						placeholder="Enter email">
+					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+						else.</small>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Password</label>
+					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+				</div>
+				<div class="form-check">
+					<input type="checkbox" class="form-check-input" id="exampleCheck1">
+					<label class="form-check-label" for="exampleCheck1">Check me out</label>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
 		</view>
 	</view_container>
 

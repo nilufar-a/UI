@@ -23,3 +23,7 @@ view_container {
 	height: 100%;
 	margin: 0;
 }
+
+.hide_children_until_load_complete * {
+	display: none !important;
+}

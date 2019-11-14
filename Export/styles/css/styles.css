@@ -22,6 +22,10 @@ view_container {
   margin: 0;
 }
 
+.hide_children_until_load_complete * {
+  display: none !important;
+}
+
 .board {
   width: 100%;
   height: 100%;
