@@ -24,6 +24,7 @@ class ViewControl {
 		$(window).resize(function () {
 			VS.onResize();
 		});
+		$('.hide_children_until_load_complete').removeClass("hide_children_until_load_complete");
 	}
 
 	CollectElems() {
@@ -53,7 +54,6 @@ class ViewControl {
 			else
 				$(this).show();
 		});
-		$('.hide_children_until_load_complete').removeClass("hide_children_until_load_complete");
 	}
 
 	ChangeView(viewName) {
