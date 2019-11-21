@@ -53,26 +53,26 @@ class GameBoard extends Board {
 			else if (previus.x - current.x == 0 && current.y - previus.y == -1) previus_d = 2;
 			else if (previus.y - current.y == 0 && current.x - previus.x == 1) previus_d = 3;
 			else if (previus.y - current.y == 0 && current.x - previus.x == -1) previus_d = 1;
-			else Console.exception("getTrailChar invalid parameters (previus):" + JSON.stringify(previus) + ', ' + JSON.stringify(current) + ', ' + JSON.stringify(next));
+			else console.error("getTrailChar invalid parameters (previus):" + JSON.stringify(previus) + ', ' + JSON.stringify(current) + ', ' + JSON.stringify(next));
 		}
 		if (next != undefined) {
 			if (next.x - current.x == 0 && current.y - next.y == 1) next_d = 0
 			else if (next.x - current.x == 0 && current.y - next.y == -1) next_d = 2;
 			else if (next.y - current.y == 0 && current.x - next.x == 1) next_d = 3;
 			else if (next.y - current.y == 0 && current.x - next.x == -1) next_d = 1;
-			else Console.exception("getTrailChar invalid parameters (next): " + JSON.stringify(previus) + ', ' + JSON.stringify(current) + ', ' + JSON.stringify(next));
+			else console.error("getTrailChar invalid parameters (next): " + JSON.stringify(previus) + ', ' + JSON.stringify(current) + ', ' + JSON.stringify(next));
 		}
 		if (previus_d == undefined) previus_d = (next_d + 2) % 4;
 		if (next_d == undefined) next_d = (previus_d + 2) % 4;
-		if (next_d == undefined) Console.exception("getTrailChar invalid parameters (all): " + JSON.stringify(previus) + ', ' + JSON.stringify(current) + ', ' + JSON.stringify(next));
+		if (next_d == undefined) console.error("getTrailChar invalid parameters (all): " + JSON.stringify(previus) + ', ' + JSON.stringify(current) + ', ' + JSON.stringify(next));
 
 		if ((previus_d == 0 && next_d == 2) || (previus_d == 2 && next_d == 0)) return iconMap.trail.line.vertical;
 		if ((previus_d == 1 && next_d == 3) || (previus_d == 3 && next_d == 1)) return iconMap.trail.line.horizontal;
 		if ((previus_d == 0 && next_d == 1) || (previus_d == 1 && next_d == 0)) return iconMap.trail.turn.topRight;
-		if ((previus_d == 1 && next_d == 2) || (previus_d == 2 && next_d == 1)) return iconMap.trail.turn.bottomLeft;
+		if ((previus_d == 1 && next_d == 2) || (previus_d == 2 && next_d == 1)) return iconMap.trail.turn.bottomRight;
 		if ((previus_d == 2 && next_d == 3) || (previus_d == 3 && next_d == 2)) return iconMap.trail.turn.bottomLeft;
 		if ((previus_d == 3 && next_d == 0) || (previus_d == 0 && next_d == 3)) return iconMap.trail.turn.topLeft;
-		Console.exception("getTrailChar invalid result");
+		console.error("getTrailChar invalid result");
 		return previus_d + "" + next_d;// texhnically valid return value that is usefull for debugging
 	}
 }

@@ -11,9 +11,14 @@
 	right: 0;
 	top: 10%;
 	z-index: 1000;
+	justify-content: space-around;
 
 	.editor_entity {
 		flex: 0;
-		@include square(32px);
+		@include square(60px);
+		border: 1px solid black;
+		align-items: center;
+		text-align: center;
+		font-size: 50px;
 	}
 }

@@ -36,10 +36,10 @@ class PlayerEntity extends Entity {
 	};
 
 	GetPlayerChar(directionValue) {
-		if (directionValue == 2) return iconMap.player.fromTop;//player cooming from the Top
-		else if (directionValue == 0) return iconMap.player.fromBottom;//player cooming from the Bottom
-		else if (directionValue == 1) return iconMap.player.fromLeft;//player cooming from the Left
-		else if (directionValue == 3) return iconMap.player.fromRight;//player cooming from the Right
+		if (directionValue == 0) return iconMap.player.fromTop;//player cooming from the Top
+		else if (directionValue == 2) return iconMap.player.fromBottom;//player cooming from the Bottom
+		else if (directionValue == 3) return iconMap.player.fromLeft;//player cooming from the Left
+		else if (directionValue == 1) return iconMap.player.fromRight;//player cooming from the Right
 		else Console.exception("getPlayerChar invalid parameters :" + JSON.stringify(previus) + ', ' + JSON.stringify(player));
 		return "P";
 	}

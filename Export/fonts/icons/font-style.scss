@@ -1,0 +1,64 @@
+@import "font-variables";
+
+@font-face {
+	font-family: "#{$icomoon-font-family}";
+	src: url("#{$icomoon-font-path}/#{$icomoon-font-family}.eot?t47ujl");
+	src: url("#{$icomoon-font-path}/#{$icomoon-font-family}.eot?t47ujl#iefix") format("embedded-opentype"),
+		url("#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?t47ujl") format("truetype"),
+		url("#{$icomoon-font-path}/#{$icomoon-font-family}.woff?t47ujl") format("woff"),
+		url("#{$icomoon-font-path}/#{$icomoon-font-family}.svg?t47ujl##{$icomoon-font-family}") format("svg");
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+
+.icon {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: "#{$icomoon-font-family}" !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-TrailTurn-tr {
+	&:before {
+		content: $icon-TrailTurn-tr;
+	}
+}
+.icon-TrailTurn-br {
+	&:before {
+		content: $icon-TrailTurn-br;
+	}
+}
+.icon-TrailTurn-bl {
+	&:before {
+		content: $icon-TrailTurn-bl;
+	}
+}
+.icon-TrailTurn-tl {
+	&:before {
+		content: $icon-TrailTurn-tl;
+	}
+}
+.icon-Boost {
+	&:before {
+		content: $icon-Boost;
+	}
+}
+.icon-Trail-v {
+	&:before {
+		content: $icon-Trail-v;
+	}
+}
+.icon-Trail-h {
+	&:before {
+		content: $icon-Trail-h;
+	}
+}

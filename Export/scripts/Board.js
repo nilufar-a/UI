@@ -8,18 +8,18 @@ const iconMap = {
 	},
 	trail: {
 		line: {
-			horizontal: "h",
-			vertical: "v"
+			horizontal: "━",
+			vertical: "┃"
 		},
 		turn: {
-			topRight: "tr",
-			bottomRight: "br",
-			bottomLeft: "bl",
-			topLeft: "tl"
+			topRight: "┗",
+			bottomRight: "┏",
+			bottomLeft: "┓",
+			topLeft: "┛"
 		}
 	},
 	entities: {
-		powerUp: "B",
+		powerUp: "^",
 		obstacle: "O"
 	}
 }
@@ -40,7 +40,7 @@ class Board {
 			ret += '<tr class="board_row">';
 			this.state[r] = [];
 			for (let i = 0; i < this.boardDims.width; i++) {
-				ret += '<td class="board_cell" id="bc_x' + i + 'y' + r + '" ></td>'
+				ret += '<td class="board_cell icon" id="bc_x' + i + 'y' + r + '" ></td>'
 				this.state[r][i] = {};
 			}
 			ret += '</tr>';
@@ -96,8 +96,7 @@ class Board {
 		let board_cell =
 			".board_cell{\n" +
 			"width: " + cellDim + "px;\n" +
-			"font-size: " + cellDim + "px;\n" +
-			"line-height: " + cellDim + "px;\n" +
+			"font-size: " + (cellDim * 0.9) + "px;\n" +
 			"height: " + cellDim + "px;\n" +
 			"max-width: " + cellDim + "px;\n" +
 			"}\n" +

@@ -1,10 +1,12 @@
 
 $(document).ready(function () { Main(); });
+var VC
+var board
 
 function Main() {
-	var VC = new ViewControl();
-	//var board = new GameBoard(64, 64, VC);
-	var board = new EditorBoard(24, 24, VC);
+	VC = new ViewControl();
+	//board = new GameBoard(24, 24, VC);
+	board = new EditorBoard(24, 24, VC);
 	var list = [{ Test: 'text 1' }, { Test: '2nd text' }, { Test: 'third example' }];
 
 
