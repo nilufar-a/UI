@@ -1,98 +1,102 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-		crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="styles/css/styles.css">
-	<style id="board_styles">
-		/*generated with script for global styling*/
-	</style>
-	<script>
-		//embeded script
-	</script>
-	<!-- import object definitions (please dont alter the order, but it should not matter)-->
-	<script src="./scripts/ViewControl.js"></script>
-	<script src="./scripts/Board.js"></script>
-	<script src="./scripts/GameBoard.js"></script>
-	<script src="./scripts/EditorBoard.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/css/styles.css">
+    <style id="board_styles">
+        /*generated with script for global styling*/
+    </style>
+    <script>
+        //embeded script
+    </script>
+    <!-- import object definitions (please dont alter the order, but it should not matter)-->
+    <script src="./scripts/ViewControl.js"></script>
+    <script src="./scripts/Board.js"></script>
+    <script src="./scripts/GameBoard.js"></script>
+    <script src="./scripts/EditorBoard.js"></script>
 
 
-	<script src="./scripts/Main.js">//import last, contains the logic</script>
-	<style>
-		/*embeded styles*/
-	</style>
+    <script src="./scripts/Main.js">
+        //import last, contains the logic
+    </script>
+    <style>
+        /*embeded styles*/
+    </style>
 </head>
 
 
 <body>
-	<view_container id="view_container" class="hide_children_until_load_complete">
-		<view name="a">
-			<div class="elem_container" id="elem_container_demo">
-				<elem name="test_elem">
-					<div class="test"> %Test% </div>
-				</elem>
-			</div>
-			<fld name="test_fld" class="title">
-				your name is "%name%"
-			</fld>
-		</view>
+    <view_container id="view_container" class="hide_children_until_load_complete">
+        <view name="a">
+            <div class="elem_container" id="elem_container_demo">
+                <elem name="test_elem">
+                    <div class="test"> %Test% </div>
+                </elem>
+            </div>
+            <fld name="test_fld" class="title">
+                your name is "%name%"
+            </fld>
+        </view>
 
-		<view name="main_menu">
-			//TODO
-		</view>
+        <view name="main_menu">
+            <div class="menu">
+                <h1 class="title">MENU</h1>
+                <ul>
+                    <li class="button button--start">New Game</li>
+                    <li class="button button--scores">Scores</li>
+                    <li class="button button--about">About</li>
+                </ul>
 
-		<view name="splash">
-			<h1>Splash screeen</h1>
-		</view>
-		<view name="game">
-			<div class="board">
-				<table id="game-board" class="board_table">
+            </div>
+        </view>
 
-				</table>
-			</div>
-		</view>
-		<view name="editor">
-			<div id="editor_entity_selector">
-				<elem name="editor_entity">
-					<div class="editor_entity icon" value="%value%" title="%name%">
-						%displayValue%
-					</div>
-				</elem>
-			</div>
-			<div class="board">
-				<table id="editor-board" class="board_table">
+        <view name="splash">
+            <h1>Splash screeen</h1>
+        </view>
+        <view name="game">
+            <div class="board">
+                <table id="game-board" class="board_table">
 
-				</table>
-			</div>
-		</view>
-		<view name="login">
-			<form id="login_form">
-				<div class="form-group">
-					<label for="exampleInputEmail1">Email address</label>
-					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-						placeholder="Enter email">
-					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                </table>
+            </div>
+        </view>
+        <view name="editor">
+            <div id="editor_entity_selector">
+                <elem name="editor_entity">
+                    <div class="editor_entity icon" value="%value%" title="%name%">
+                        %displayValue%
+                    </div>
+                </elem>
+            </div>
+            <div class="board">
+                <table id="editor-board" class="board_table">
+
+                </table>
+            </div>
+        </view>
+        <view name="login">
+            <form id="login_form">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
 						else.</small>
-				</div>
-				<div class="form-group">
-					<label for="exampleInputPassword1">Password</label>
-					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-				</div>
-				<div class="form-check">
-					<input type="checkbox" class="form-check-input" id="exampleCheck1">
-					<label class="form-check-label" for="exampleCheck1">Check me out</label>
-				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</form>
-		</view>
-	</view_container>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </view>
+    </view_container>
 
 
 </body>
