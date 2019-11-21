@@ -1,0 +1,19 @@
+@import "./__imports.scss";
+
+#editor_entity_selector {
+	position: absolute;
+	overflow-y: auto;
+	overflow-x: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 80%;
+	position: absolute;
+	right: 0;
+	top: 10%;
+	z-index: 1000;
+
+	.editor_entity {
+		flex: 0;
+		@include square(32px);
+	}
+}

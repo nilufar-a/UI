@@ -26,14 +26,15 @@ const iconMap = {
 
 
 class Board {
-	constructor(width, height, VC) {
+	constructor(width, height, VC, board) {
 		this.boardDims = { width: width, height: height };
+		this.board = board;
 		this.state = [];
-		this.BuildBoard($("#game-board"));
+		this.BuildBoard();
 		VC.SubscribreResize(this.resizeAction.bind(this));
 	}
 
-	BuildBoard(board) {
+	BuildBoard(cellClickAction) {
 		var ret = "";
 		for (let r = 0; r < this.boardDims.height; r++) {
 			ret += '<tr class="board_row">';
@@ -44,8 +45,18 @@ class Board {
 			}
 			ret += '</tr>';
 		}
-		board.html(ret);
+		this.board.html(ret);
+		if (cellClickAction != undefined) {
+			$(".board_cell").click(function () {
+				cellClickAction($(this))
+			});
+		}
 		this.resizeAction();
+	}
+
+	DistroyBoard() {
+		this.state = [];
+		this.board.html("");
 	}
 
 	LoadState(state, synchState = true) {
@@ -63,11 +74,20 @@ class Board {
 			for (let i = 0; i < this.boardDims.width; i++) {
 				if (this.state[r][i] != undefined) {
 					let target = $('#bc_x' + i + 'y' + r);
+					if (this.state[r][i].entity != undefined) this.state[r][i].char = this.state[r][i].entity.value;
 					if (this.state[r][i].char != undefined) target.text(this.state[r][i].char);
 					if (this.state[r][i].color != undefined) target.css('color', this.state[r][i].color);
 				}
 			}
 		}
+	}
+
+	ParceCellID(id) {
+		let regex = /bc_x(\d{1,})y(\d{1,})/;
+		let ret = id.match(regex);
+		return {
+			x: ret[1], y: ret[2]
+		};
 	}
 
 	resizeAction() {

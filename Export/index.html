@@ -21,6 +21,7 @@
 	<script src="./scripts/ViewControl.js"></script>
 	<script src="./scripts/Board.js"></script>
 	<script src="./scripts/GameBoard.js"></script>
+	<script src="./scripts/EditorBoard.js"></script>
 
 
 	<script src="./scripts/Main.js">//import last, contains the logic</script>
@@ -53,6 +54,20 @@
 		<view name="game">
 			<div class="board">
 				<table id="game-board" class="board_table">
+
+				</table>
+			</div>
+		</view>
+		<view name="editor">
+			<div id="editor_entity_selector">
+				<elem name="editor_entity">
+					<div class="editor_entity btn" value="%value%" title="%name%">
+						%displayValue%
+					</div>
+				</elem>
+			</div>
+			<div class="board">
+				<table id="editor-board" class="board_table">
 
 				</table>
 			</div>

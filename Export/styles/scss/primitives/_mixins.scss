@@ -9,3 +9,12 @@
 	margin-right: $val;
 	margin-left: $val;
 }
+
+@mixin square($val) {
+	width: $val;
+	min-width: $val;
+	max-width: $val;
+	height: $val;
+	min-height: $val;
+	max-height: $val;
+}

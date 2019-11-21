@@ -2,7 +2,7 @@
 class GameBoard extends Board {
 
 	constructor(width, height, VC) {
-		super(width, height, VC);
+		super(width, height, VC, $("#game-board"));
 	}
 
 
@@ -25,6 +25,11 @@ class GameBoard extends Board {
 
 	LoadState(state, synchState = true) {
 		super.LoadState(state, false);
+		this.UpdateState(state, synchState);
+	}
+
+
+	UpdateState(state, synchState = true) {
 		state.players.forEach(player => {
 			this.drawPlayer(player.tracer, player.headPosition, player.color);
 		});
@@ -32,7 +37,6 @@ class GameBoard extends Board {
 	}
 
 	getPlayerChar(previus, player) {
-
 		if (previus.x - player.x == 0 && player.y - previus.y == 1) return iconMap.player.fromTop;//player cooming from the Top
 		else if (previus.x - player.x == 0 && player.y - previus.y == -1) return iconMap.player.fromBottom;//player cooming from the Bottom
 		else if (previus.y - player.y == 0 && player.x - previus.x == 1) return iconMap.player.fromLeft;//player cooming from the Left
