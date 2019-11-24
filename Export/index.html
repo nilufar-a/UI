@@ -17,6 +17,8 @@
     <script src="./scripts/Board.js"></script>
     <script src="./scripts/GameBoard.js"></script>
     <script src="./scripts/EditorBoard.js"></script>
+    <script src="./scripts/MenuControl.js"></script>
+
 
 
     <script src="./scripts/Main.js">
@@ -41,21 +43,82 @@
             </fld>
         </view>
 
-        <view name="main_menu">
-            <div class="menu">
-                <h1 class="title">MENU</h1>
-                <ul>
-                    <li class="button button--start">New Game</li>
-                    <li class="button button--scores">Scores</li>
-                    <li class="button button--about">About</li>
-                </ul>
+        <view name="main_menu" id="main">
+			<div class="textCenter">
+				<div class="text-effect">
+					<h1 class="tron" data-text="Tron" contenteditable>TRON</h1>
+					<div class="gradient"></div>
+					<div class="spotlight"></div>
+				</div>
+			</div>
 
-            </div>
-        </view>
 
-        <view name="splash">
-            <h1>Splash screeen</h1>
-        </view>
+			<!-- <h1 class="title">TRON</h1> -->
+
+			<ul class="list">
+					<li label class="label" onclick="goToPlayerChoice()">Play</li>
+					<li label class="label">Leaderboards</li>
+					<li label class="label">Level Creator</li>
+			</ul>
+
+			
+		</view>
+
+		<view name="single_multiple">
+			
+				<div class="textCenter">
+					<div class="text-effect">
+						<h1 class="tron" data-text="Tron" contenteditable>TRON</h1>
+						<div class="gradient"></div>
+						<div class="spotlight"></div>
+					</div>
+				</div>
+				
+
+				<ul class="list">
+						<li label class="label single">Singleplayer</li>
+						<li label class="label multiple">Multiplayer</li>
+						
+				</ul>
+
+		</view>
+
+
+		<view name="lobby">
+			
+				<div class="textCenter">
+					<div class="text-effect">
+						<h1 class="tron" data-text="Tron" contenteditable>TRON</h1>
+						<div class="gradient"></div>
+						<div class="spotlight"></div>
+					</div>
+				</div>
+				
+
+				<ul class="list">
+						<li label class="label create">Create Lobby</li>
+						<li label class="label find">Find Lobby</li>
+						
+				</ul>
+
+		</view>
+
+		<view name="splash">
+			<h1>
+					<div class="textCenter">
+							<div class="text-effect">
+								<h1 class="tron" data-text="Tron" contenteditable>TRON</h1>
+								<div class="gradient"></div>
+								<div class="spotlight"></div>
+							</div>
+						</div>
+			</h1>
+		</view>
+
+
+
+
+
         <view name="game">
             <div class="board">
                 <table id="game-board" class="board_table">
