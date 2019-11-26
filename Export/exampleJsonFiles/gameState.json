@@ -1,4 +1,6 @@
 {
+	"timeToUpdate": 1000,
+	"turnCounter": 2,
 	"map": {
 		"width": 24,
 		"height": 24,

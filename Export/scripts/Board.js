@@ -26,10 +26,13 @@ const iconMap = {
 
 
 class Board {
-	constructor(width, height, VC, board) {
+	constructor(width, height, VC, Acc, board) {
+		this.Acc = Acc;
+		this.VC = VC;
 		this.boardDims = { width: width, height: height };
 		this.board = board;
 		this.state = [];
+		this.running = false;
 		this.BuildBoard();
 		VC.SubscribreResize(this.resizeAction.bind(this));
 	}

@@ -103,8 +103,8 @@ class EditorEntityManager {
 
 class EditorBoard extends Board {
 
-	constructor(width, height, VC) {
-		super(width, height, VC, $("#editor-board"));
+	constructor(width, height, VC, Acc) {
+		super(width, height, VC, Acc, $("#editor-board"));
 		this.EEM = new EditorEntityManager(VC);
 	}
 
