@@ -90,6 +90,15 @@ view_container {
     font-size: 50px;
 }
 
+#game_player_list {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 10%;
+  right: 0;
+  z-index: 1000;
+}
+
 @font-face {
     font-family: "icons";
     src: url("../../fonts/icons/font/icons.eot?t47ujl");

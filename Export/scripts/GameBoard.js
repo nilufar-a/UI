@@ -33,7 +33,12 @@ class GameBoard extends Board {
 		state.players.forEach(player => {
 			this.drawPlayer(player.tracer, player.headPosition, player.color);
 		});
+		this.displayPlayerList(state);
 		if (synchState) this.SynchState();
+	}
+
+	displayPlayerList(state) {
+		VC.DisplayList(state.players, "game_player_list_item");
 	}
 
 	getPlayerChar(previus, player) {

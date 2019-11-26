@@ -34,7 +34,7 @@
 	"players": [
 		{
 			"color": "#ff0000",
-			"id": 0,
+			"id": "Garry",
 			"headPosition": {
 				"x": 10,
 				"y": 20
@@ -64,7 +64,7 @@
 		},
 		{
 			"color": "#0000ff",
-			"id": 2,
+			"id": "Jerry",
 			"headPosition": {
 				"x": 20,
 				"y": 8

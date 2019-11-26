@@ -95,7 +95,7 @@ class ViewControl {
 		let keys = Object.keys(data);
 		keys.forEach(key => {
 			let value = data[key];
-			html = html.replace("%" + key + "%", value);
+			html = html.split("%" + key + "%").join(value);
 		});
 		return html;
 	}
