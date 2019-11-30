@@ -54,7 +54,7 @@ class GameBoard extends Board {
 		else if (previus.x - player.x == 0 && player.y - previus.y == -1) return iconMap.player.fromBottom;//player cooming from the Bottom
 		else if (previus.y - player.y == 0 && player.x - previus.x == 1) return iconMap.player.fromLeft;//player cooming from the Left
 		else if (previus.y - player.y == 0 && player.x - previus.x == -1) return iconMap.player.fromRight;//player cooming from the Right
-		else Console.exception("getPlayerChar invalid parameters :" + JSON.stringify(previus) + ', ' + JSON.stringify(player));
+		else console.error("getPlayerChar invalid parameters :" + JSON.stringify(previus) + ', ' + JSON.stringify(player));
 		return "P";
 	}
 
