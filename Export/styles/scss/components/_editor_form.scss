@@ -1,0 +1,48 @@
+@import "./__imports.scss";
+
+#editor_form {
+	position: absolute;
+	width: 20%;
+	top: 20%;
+	height: auto;
+	max-height: 60%;
+	left: -10px;
+	padding: 15px;
+	padding-left: 25px;
+	z-index: 10;
+	min-width: 110px;
+	max-width: 410px;
+	background-color: black;
+	border: 1px solid white;
+	border-radius: 5px;
+	overflow-y: scroll;
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	&:focus-within,
+	&:hover {
+		width: 35%;
+	}
+
+	& > * {
+		margin: 5px;
+	}
+
+	#editor_button_row {
+		margin-left: 0;
+		margin-right: 0;
+		flex-wrap: wrap;
+		.btn {
+			margin: 5px;
+			flex-grow: 1;
+		}
+	}
+
+	.input-group {
+		width: auto;
+	}
+}

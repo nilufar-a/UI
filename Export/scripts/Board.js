@@ -38,7 +38,7 @@ class Board {
 		VC.SubscribreResize(this.resizeAction.bind(this));
 	}
 
-	BuildBoard(cellClickAction) {
+	BuildBoard() {
 		var ret = "";
 		for (let r = 0; r < this.height; r++) {
 			ret += '<tr class="board_row">';
@@ -50,9 +50,10 @@ class Board {
 			ret += '</tr>';
 		}
 		this.board.html(ret);
-		if (cellClickAction != undefined) {
+		let ccl = this.cellClickAction.bind(this);
+		if (this.cellClickAction != undefined) {
 			$(".board_cell").click(function () {
-				cellClickAction($(this))
+				ccl($(this));
 			});
 		}
 		this.resizeAction();
@@ -64,6 +65,12 @@ class Board {
 	}
 
 	LoadState(state, synchState = true) {
+		if (state.map.width != this.width || state.map.height != this.height) {
+			this.DistroyBoard();
+			this.width = state.map.width;
+			this.height = state.map.height;
+			this.BuildBoard();
+		}
 		state.map.obstacles.forEach(obstacle => {
 			this.state[obstacle.y][obstacle.x].char = iconMap.entities.obstacle;
 		});
@@ -95,7 +102,7 @@ class Board {
 	}
 
 	resizeAction() {
-		let cellDim = (window.innerHeight / this.height) * 0.8;
+		let cellDim = (this.VC.height / this.height) * 0.8;
 
 		let board_cell =
 			".board_cell{\n" +

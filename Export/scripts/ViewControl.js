@@ -1,7 +1,7 @@
 
 // minimum aspect ratio
 const ASPECT_RATIO_VERTICAL = 3;
-const ASPECT_RATIO_HOEIZONTAL = 3;
+const ASPECT_RATIO_HORIZONTAL = 4;
 
 class ViewControl {
 	constructor() {
@@ -12,10 +12,14 @@ class ViewControl {
 		this.resizeSubscribers = [];
 		this.currentView = "splash";
 		this.changingview = false;
+		this.height = window.innerHeight;
+		this.width = window.innerWidth;
 		this.CollectViews();
 		this.CollectElems();
 		this.CollectFlds();
 		this.UpdateAllfields();
+		this.resizeInProgress = false;
+		this.resizeInvalidated = false;
 		var VS = this;
 
 		$(".prevent_default_click").click(function (event) {
@@ -24,6 +28,7 @@ class ViewControl {
 		$(window).resize(function () {
 			VS.onResize();
 		});
+		this.onResize();
 		$('.hide_children_until_load_complete').removeClass("hide_children_until_load_complete");
 	}
 
@@ -97,6 +102,7 @@ class ViewControl {
 			let value = data[key];
 			html = html.split("%" + key + "%").join(value);
 		});
+		html = html.replace(/\s?%\S*%/gm, "");
 		return html;
 	}
 
@@ -105,11 +111,23 @@ class ViewControl {
 	}
 
 	onResize() {
-		this.resizeSubscribers.forEach(subscriber => {
-			subscriber();
-		});
-
-		if (window.innerHeight * ASPECT_RATIO_HOEIZONTAL > window.innerWidth * ASPECT_RATIO_VERTICAL)
-			alert("Resize your window such that the width is noticebly greater than height.\n Otherwise area of the screen will become unuseable");
+		if (!this.resizeInProgress) {
+			this.resizeInProgress = true;
+			let height_css = "100%";
+			if (window.innerHeight * ASPECT_RATIO_HORIZONTAL > window.innerWidth * ASPECT_RATIO_VERTICAL) {
+				//alert("Resize your window such that the width is noticebly greater than height.\n Otherwise lower area of the screen will become unuseable");
+				let reduction = window.innerWidth / ASPECT_RATIO_HORIZONTAL * ASPECT_RATIO_VERTICAL / window.innerHeight;
+				this.height = window.innerHeight * reduction;
+				height_css = (reduction * 100) + "%"
+			}
+			$("view_container").height(height_css);
+			this.resizeSubscribers.forEach(subscriber => {
+				subscriber();
+			});
+			this.resizeInProgress = false;
+			if (this.sresizeInvalidated) this.onResize();
+		} else {
+			this.resizeInvalidated = true
+		}
 	}
 }

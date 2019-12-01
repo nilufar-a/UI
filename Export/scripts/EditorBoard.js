@@ -85,6 +85,12 @@ class EditorEntityManager {
 		this.entities.push(new PlayerEntity());
 		this.entities.push(new Entity("", "X", "Clear"));
 		this.selected = this.findEntity("");
+		this.entities.forEach(entity => {
+			if (this.selected.name == entity.name)
+				entity.class = "active";
+			else
+				entity.class = "";
+		});
 		this.display();
 	}
 
@@ -102,6 +108,15 @@ class EditorEntityManager {
 		}
 		else {
 			this.selected = this.findEntity(value);
+			this.entities.forEach(entity => {
+				if (this.selected.name == entity.name)
+					entity.class = "active";
+				else
+					entity.class = "";
+			});
+
+			this.display();
+			console.log(this.entities);
 		}
 	}
 
@@ -119,9 +134,10 @@ class EditorEntityManager {
 class EditorBoard extends Board {
 
 	constructor(VC, Acc) {
-		super(64, 64, VC, Acc, $("#editor-board")); // hardcodedd initial dimentions.
+		super(24, 24, VC, Acc, $("#editor-board")); // hardcodedd initial dimentions.
 		this.EEM = new EditorEntityManager(VC);
 		this.name = "New Map";
+		this.ECF = new EditorConfigurationForm(24, 24, this, VC);
 	}
 
 	LoadState(state, synchState = true) {
@@ -134,16 +150,10 @@ class EditorBoard extends Board {
 		if (synchState) this.SynchState();
 	}
 
-	BuildBoard() {
-		super.BuildBoard(this.cellClickAction.bind(this));
-	}
-
 	cellClickAction(cell) {
-		var point = this.ParceCellID(cell.attr("id"));
+		let point = this.ParceCellID(cell.attr("id"));
 		this.state[point.y][point.x].entity = this.EEM.GetCurrent();
 		this.SynchState();
-		console.log(this.GetMapObject());
-		console.log(JSON.stringify(this.GetMapObject()));
 	}
 
 	GetMapObject() {
@@ -162,5 +172,250 @@ class EditorBoard extends Board {
 			}
 		}
 		return ret;
+	}
+}
+
+const MAP_MIN_DIMENTION = 16;
+const MAP_MAX_DIMENTION = 64;
+const IS_VALID_CLASS = "is-valid";
+const IS_INVALID_CLASS = "is-invalid";
+const FORM_DURATIO = 0;
+
+class EditorConfigurationForm {
+	constructor(width, height, EB, VC) {
+		this.nameChecked = false;
+		this.nameOccupied = false;
+		this.width = width;
+		this.height = height;
+		this.EB = EB;
+		this.VC = VC;
+		this.DOMobjects = {
+			input: {
+				name: $("#mapName"),
+				width: $("#mapWidthInput"),
+				height: $("#mapHeightInput")
+			},
+			button: {
+				check: $("#check_name_btn"),
+				load: $("#editor_lodad_btn"),
+				save: $("#editor_save_btn"),
+				update: $("#editor_update_btn"),
+				rebuild: $("#editor_rebuild_btn"),
+			},
+			alert: {
+				check: $("#editor_alert_check"),
+				save: $("#editor_alert_save"),
+				update: $("#editor_alert_update"),
+				dimention: $("#editor_alert_dimention"),
+				width: $("#editor_alert_width"),
+			},
+			state: {
+				input: {
+					width: undefined,
+					height: undefined
+				},
+				button: {
+					load: false,
+					save: false,
+					update: false,
+					rebuild: false,
+				},
+				alert: {
+					check: false,
+					save: false,
+					update: false,
+					dimention: false,
+					width: false,
+				}
+			}
+		};
+
+		this.validateAndDraw();
+
+
+		this.DOMobjects.input.name.keyup((function (e) {
+			this.nameChecked = false;
+			this.validateAndDraw();
+		}).bind(this));
+		this.DOMobjects.input.width.change((function (e) {
+			this.nameChecked = false;
+			this.validateAndDraw();
+		}).bind(this));
+		this.DOMobjects.input.height.change((function (e) {
+			this.nameChecked = false;
+			this.validateAndDraw();
+		}).bind(this));
+		this.DOMobjects.button.check.click((function (e) {
+			this.CheckName(this.DOMobjects.input.name.val());
+		}).bind(this));
+		this.DOMobjects.button.load.click((function (e) {
+			this.LoadMap(this.DOMobjects.input.name.val());
+		}).bind(this));
+		this.DOMobjects.button.save.click((function (e) {
+			this.UploadMap();
+		}).bind(this));
+		this.DOMobjects.button.update.click((function (e) {
+			this.UpdateMap();
+		}).bind(this));
+		this.DOMobjects.button.rebuild.click((function (e) {
+			console.log(this.EB);
+			this.EB.DistroyBoard();
+			this.EB.width = this.DOMobjects.input.width.val();
+			this.EB.height = this.DOMobjects.input.height.val();
+			this.EB.BuildBoard();
+		}).bind(this));
+	}
+
+	CheckName(name) {
+		$.ajax({
+			type: "GET",
+			url: "/isNameOccupied", //TODO !!!!MISIING API GATEWAY,
+			data: JSON.stringify(Acc.Sign({
+				mapid: name
+			})), //TODO MISSING REQUEST SPECIFICATION
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: (function (data) {
+				this.nameChecked = true;
+				this.nameOccupied = this.data.occupied;
+				this.validateAndDraw();
+			}).bind(this)
+		});
+	}
+
+	LoadMap(name) {
+		$.ajax({
+			type: "GET",
+			url: "/getMap", //TODO !!!!MISIING API GATEWAY,
+			data: JSON.stringify(Acc.Sign({
+				mapid: name
+			})), //TODO MISSING REQUEST SPECIFICATION
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: (function (data) {
+				this.EB.LoadState(data);
+				this.nameChecked = true;
+				this.nameOccupied = this.data.occupied;
+				this.validateAndDraw();
+			}).bind(this)
+		});
+	}
+
+	UploadMap() {
+		$.ajax({
+			type: "GET",
+			url: "/uploadMap", //TODO !!!!MISIING API GATEWAY,
+			data: JSON.stringify(Acc.Sign(this.EG.GetMapObject())), //TODO MISSING REQUEST SPECIFICATION
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: (function (data) {
+				this.EB.LoadState(data);
+				this.nameChecked = true;
+				this.nameOccupied = this.data.occupied;
+				this.validateAndDraw();
+			}).bind(this)
+		});
+	}
+
+	UpdateMap() {
+		$.ajax({
+			type: "GET",
+			url: "/updateMap", //TODO !!!!MISIING API GATEWAY,
+			data: JSON.stringify(Acc.Sign(this.EG.GetMapObject())), //TODO MISSING REQUEST SPECIFICATION
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: (function (data) {
+				this.EB.LoadState(data);
+				this.nameChecked = true;
+				this.nameOccupied = this.data.occupied;
+				this.validateAndDraw();
+			}).bind(this)
+		});
+	}
+
+	draw() {
+		if (this.DOMobjects.state.alert.check)
+			this.DOMobjects.alert.check.slideDown(FORM_DURATIO);
+		else
+			this.DOMobjects.alert.check.slideUp(FORM_DURATIO);
+		if (this.DOMobjects.state.alert.save)
+			this.DOMobjects.alert.save.slideDown(FORM_DURATIO);
+		else
+			this.DOMobjects.alert.save.slideUp(FORM_DURATIO);
+		if (this.DOMobjects.state.alert.update)
+			this.DOMobjects.alert.update.slideDown(FORM_DURATIO);
+		else
+			this.DOMobjects.alert.update.slideUp(FORM_DURATIO);
+		if (this.DOMobjects.state.alert.dimention)
+			this.DOMobjects.alert.dimention.slideDown(FORM_DURATIO);
+		else
+			this.DOMobjects.alert.dimention.slideUp(FORM_DURATIO);
+
+		if (this.DOMobjects.state.alert.width)
+			this.DOMobjects.alert.width.slideDown(FORM_DURATIO);
+		else
+			this.DOMobjects.alert.width.slideUp(FORM_DURATIO);
+
+		this.DOMobjects.button.load.attr("disabled", !this.DOMobjects.state.button.load);
+		this.DOMobjects.button.save.attr("disabled", !this.DOMobjects.state.button.save);
+		this.DOMobjects.button.update.attr("disabled", !this.DOMobjects.state.button.update);
+		this.DOMobjects.button.rebuild.attr("disabled", !this.DOMobjects.state.button.rebuild)
+
+		this.DOMobjects.input.width.removeClass(IS_VALID_CLASS);
+		this.DOMobjects.input.width.removeClass(IS_INVALID_CLASS);
+		this.DOMobjects.input.height.removeClass(IS_VALID_CLASS);
+		this.DOMobjects.input.height.removeClass(IS_INVALID_CLASS);
+
+		if (this.DOMobjects.state.input.height == undefined) { }
+		else if (this.DOMobjects.state.input.height)
+			this.DOMobjects.input.height.addClass(IS_VALID_CLASS);
+		else
+			this.DOMobjects.input.height.addClass(IS_INVALID_CLASS);
+		if (this.DOMobjects.state.input.width == undefined) { }
+		else if (this.DOMobjects.state.input.width)
+			this.DOMobjects.input.width.addClass(IS_VALID_CLASS);
+		else
+			this.DOMobjects.input.width.addClass(IS_INVALID_CLASS);
+
+	}
+
+	reset() {
+		this.DOMobjects.state.input.width = undefined;
+		this.DOMobjects.state.input.height = undefined;
+		this.DOMobjects.state.input.height = undefined;
+		this.DOMobjects.state.button.load = false;
+		this.DOMobjects.state.button.save = false;
+		this.DOMobjects.state.button.update = false;
+		this.DOMobjects.state.button.rebuild = false;
+		this.DOMobjects.state.alert.check = false;
+		this.DOMobjects.state.alert.save = false;
+		this.DOMobjects.state.alert.update = false;
+		this.DOMobjects.state.alert.dimention = false;
+		this.DOMobjects.state.alert.width = false;
+	}
+
+	validateAndDraw() {
+		this.reset();
+		if (this.nameChecked) {
+			if (this.nameOccupied) {
+				this.DOMobjects.state.alert.update = true;
+				this.DOMobjects.state.button.update = true;
+				this.DOMobjects.state.button.load = true;
+			} else {
+				this.DOMobjects.state.alert.save = true;
+				this.DOMobjects.state.button.save = true;
+			}
+		} else {
+			this.DOMobjects.state.alert.check = true;
+		}
+
+		let w = this.DOMobjects.input.width.val();
+		let h = this.DOMobjects.input.height.val();
+		this.DOMobjects.state.input.height = h >= 16 && h <= 64;
+		this.DOMobjects.state.input.width = w >= 16 && w <= 64 && w <= h;
+		this.DOMobjects.state.alert.dimention = h < 16 || h > 64 || w < 16 || w > 64;
+		this.DOMobjects.state.alert.width = w != "" && h != "" && w > h;
+		this.DOMobjects.state.button.rebuild = !this.DOMobjects.state.alert.dimention && !this.DOMobjects.state.alert.width
+		this.draw();
 	}
 }

@@ -1,14 +1,14 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="styles/css/styles.css">
 	<style id="board_styles">
@@ -144,10 +144,56 @@
 		<view name="editor">
 			<div id="editor_entity_selector">
 				<elem name="editor_entity">
-					<div class="editor_entity icon" value="%value%" title="%name%">
+					<div class="editor_entity icon %class%" value="%value%" title="%name%">
 						%displayValue%
 					</div>
 				</elem>
+			</div>
+			<div id="editor_form" class="d-flex flex-column bd-highlight">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Map name" aria-label="Map name" value="New Map"
+						id="mapName">
+					<div class="input-group-append">
+						<button class="btn btn-light" type="button" id="check_name_btn"> Check </button>
+					</div>
+				</div>
+				<div id="editor_alert_check" class="alert alert-warning" role="alert"
+					title="Click the the button above">
+					You need to check the Map name first.
+				</div>
+				<div id="editor_alert_save" class="alert alert-success" role="alert">
+					A map with that name does not exsist.
+				</div>
+				<div id="editor_alert_update" class="alert alert-primary" role="alert">
+					A map with that name already exsists.
+				</div>
+				<div id="editor_button_row" class="d-flex flex-row bd-highlight ">
+					<button type="button" class="btn btn-warning" id="editor_lodad_btn">Load</button>
+					<button type="button" class="btn btn-success" id="editor_save_btn">Save</button>
+					<button type="button" class="btn btn-primary" id="editor_update_btn">Update/Override</button>
+				</div>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" style="width:75px">Height</span>
+					</div>
+					<input id="mapHeightInput" type="number" min="16" max="64" class="form-control"
+						aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+				</div>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" style="width:75px">Width</span>
+					</div>
+					<input id="mapWidthInput" type="number" min="16" max="64" class="form-control"
+						aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+				</div>
+				<div id="editor_alert_dimention" class="alert alert-danger" role="alert"
+					title="Click the the button above">
+					Both sides must be in the range of between 16 and 64.
+				</div>
+				<div id="editor_alert_width" class="alert alert-danger" role="alert" title="Click the the button above">
+					Width cannot be greater than Height.
+				</div>
+				<button type="button" class="btn btn-danger" id="editor_rebuild_btn">Clear and Resize</button>
 			</div>
 			<div class="board">
 				<table id="editor-board" class="board_table">
