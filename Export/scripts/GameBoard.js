@@ -11,7 +11,6 @@ class GameBoard extends Board {
 		super(width, height, VC, Acc, $("#game-board"));
 		this.running = false;
 		this.GameState = { TurboFlag: false, turn: 0 }
-		this.StartGame(1000);
 	}
 
 	drawPlayer(trail, player, color) {

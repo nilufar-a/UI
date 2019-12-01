@@ -20,14 +20,13 @@ class ViewControl {
 		this.UpdateAllfields();
 		this.resizeInProgress = false;
 		this.resizeInvalidated = false;
-		var VS = this;
 
 		$(".prevent_default_click").click(function (event) {
 			event.preventDefault()
 		});
-		$(window).resize(function () {
-			VS.onResize();
-		});
+		$(window).resize((function () {
+			this.onResize();
+		}).bind(this));
 		this.onResize();
 		$('.hide_children_until_load_complete').removeClass("hide_children_until_load_complete");
 	}
@@ -111,23 +110,18 @@ class ViewControl {
 	}
 
 	onResize() {
-		if (!this.resizeInProgress) {
-			this.resizeInProgress = true;
-			let height_css = "100%";
-			if (window.innerHeight * ASPECT_RATIO_HORIZONTAL > window.innerWidth * ASPECT_RATIO_VERTICAL) {
-				//alert("Resize your window such that the width is noticebly greater than height.\n Otherwise lower area of the screen will become unuseable");
-				let reduction = window.innerWidth / ASPECT_RATIO_HORIZONTAL * ASPECT_RATIO_VERTICAL / window.innerHeight;
-				this.height = window.innerHeight * reduction;
-				height_css = (reduction * 100) + "%"
-			}
-			$("view_container").height(height_css);
-			this.resizeSubscribers.forEach(subscriber => {
-				subscriber();
-			});
-			this.resizeInProgress = false;
-			if (this.sresizeInvalidated) this.onResize();
-		} else {
-			this.resizeInvalidated = true
+		let height_css = "100%";
+		this.height = window.innerHeight;
+		this.width = window.innerWidth;
+		if (window.innerHeight * ASPECT_RATIO_HORIZONTAL > window.innerWidth * ASPECT_RATIO_VERTICAL) {
+			//alert("Resize your window such that the width is noticebly greater than height.\n Otherwise lower area of the screen will become unuseable");
+			let reduction = window.innerWidth / ASPECT_RATIO_HORIZONTAL * ASPECT_RATIO_VERTICAL / window.innerHeight;
+			this.height = window.innerHeight * reduction;
+			height_css = (reduction * 100) + "%";
 		}
+		$("view_container").height(height_css);
+		this.resizeSubscribers.forEach(subscriber => {
+			subscriber();
+		});
 	}
 }

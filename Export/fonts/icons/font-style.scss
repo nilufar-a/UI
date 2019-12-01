@@ -1,4 +1,4 @@
-@import "font-variables";
+@import "font-variables.scss";
 
 @font-face {
 	font-family: "#{$icomoon-font-family}";
@@ -14,8 +14,8 @@
 
 .icon {
 	/* use !important to prevent issues with browser extensions that change fonts */
-	font-family: "#{$icomoon-font-family}" !important;
-	speak: none;
+	font-family: "#{$icomoon-font-family}", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+		Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
@@ -27,29 +27,34 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-TrailTurn-tr {
+.icon-Bike-up {
 	&:before {
-		content: $icon-TrailTurn-tr;
+		content: $icon-Bike-up;
 	}
 }
-.icon-TrailTurn-br {
+.icon-Bike-right {
 	&:before {
-		content: $icon-TrailTurn-br;
+		content: $icon-Bike-right;
 	}
 }
-.icon-TrailTurn-bl {
+.icon-Bike-down {
 	&:before {
-		content: $icon-TrailTurn-bl;
+		content: $icon-Bike-down;
 	}
 }
-.icon-TrailTurn-tl {
+.icon-Bike-left {
 	&:before {
-		content: $icon-TrailTurn-tl;
+		content: $icon-Bike-left;
 	}
 }
 .icon-Boost {
 	&:before {
 		content: $icon-Boost;
+	}
+}
+.icon-Obstacle {
+	&:before {
+		content: $icon-Obstacle;
 	}
 }
 .icon-Trail-v {
@@ -60,5 +65,25 @@
 .icon-Trail-h {
 	&:before {
 		content: $icon-Trail-h;
+	}
+}
+.icon-TrailTurn-curvy-br {
+	&:before {
+		content: $icon-TrailTurn-curvy-br;
+	}
+}
+.icon-TrailTurn-curvy-bl {
+	&:before {
+		content: $icon-TrailTurn-curvy-bl;
+	}
+}
+.icon-TrailTurn-curvy-tl {
+	&:before {
+		content: $icon-TrailTurn-curvy-tl;
+	}
+}
+.icon-TrailTurn-curvy-tr {
+	&:before {
+		content: $icon-TrailTurn-curvy-tr;
 	}
 }

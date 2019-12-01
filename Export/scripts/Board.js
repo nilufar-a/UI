@@ -1,10 +1,10 @@
 
 const iconMap = {
 	player: {
-		fromTop: "Pt",
-		fromBottom: "Pb",
-		fromLeft: "Pl",
-		fromRight: "Pr"
+		fromTop: "╧",
+		fromBottom: "╤",
+		fromLeft: "╢",
+		fromRight: "╟"
 	},
 	trail: {
 		line: {
@@ -19,8 +19,8 @@ const iconMap = {
 		}
 	},
 	entities: {
-		powerUp: "^",
-		obstacle: "O"
+		powerUp: "⟰",
+		obstacle: "▚"
 	}
 }
 
@@ -50,8 +50,8 @@ class Board {
 			ret += '</tr>';
 		}
 		this.board.html(ret);
-		let ccl = this.cellClickAction.bind(this);
 		if (this.cellClickAction != undefined) {
+			let ccl = this.cellClickAction.bind(this);
 			$(".board_cell").click(function () {
 				ccl($(this));
 			});
@@ -103,11 +103,12 @@ class Board {
 
 	resizeAction() {
 		let cellDim = (this.VC.height / this.height) * 0.8;
-
+		console.log("working")
 		let board_cell =
 			".board_cell{\n" +
 			"width: " + cellDim + "px;\n" +
-			"font-size: " + (cellDim * 0.9) + "px;\n" +
+			"font-size: " + (cellDim * 0.8) + "px;\n" +
+			"line-height: " + (cellDim * 0.8) + "px;\n" +
 			"height: " + cellDim + "px;\n" +
 			"max-width: " + cellDim + "px;\n" +
 			"}\n" +

@@ -1,8 +1,8 @@
 @charset "UTF-8";
 @font-face {
   font-family: "icons";
-  src: url("fonts/icons/font/icons.eot?t47ujl");
-  src: url("fonts/icons/font/icons.eot?t47ujl#iefix") format("embedded-opentype"), url("fonts/icons/font/icons.ttf?t47ujl") format("truetype"), url("fonts/icons/font/icons.woff?t47ujl") format("woff"), url("fonts/icons/font/icons.svg?t47ujl#icons") format("svg");
+  src: url("../../fonts/icons/font/icons.eot?t47ujl");
+  src: url("../../fonts/icons/font/icons.eot?t47ujl#iefix") format("embedded-opentype"), url("../../fonts/icons/font/icons.ttf?t47ujl") format("truetype"), url("../../fonts/icons/font/icons.woff?t47ujl") format("woff"), url("../../fonts/icons/font/icons.svg?t47ujl#icons") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -10,8 +10,7 @@
 
 .icon {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: "icons" !important;
-  speak: none;
+  font-family: "icons", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -22,24 +21,28 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-TrailTurn-tr:before {
-  content: "┗";
+.icon-Bike-up:before {
+  content: "╤";
 }
 
-.icon-TrailTurn-br:before {
-  content: "┏";
+.icon-Bike-right:before {
+  content: "╢";
 }
 
-.icon-TrailTurn-bl:before {
-  content: "┓";
+.icon-Bike-down:before {
+  content: "╧";
 }
 
-.icon-TrailTurn-tl:before {
-  content: "┛";
+.icon-Bike-left:before {
+  content: "╟";
 }
 
 .icon-Boost:before {
-  content: "^";
+  content: "⟰";
+}
+
+.icon-Obstacle:before {
+  content: "▚";
 }
 
 .icon-Trail-v:before {
@@ -48,4 +51,20 @@
 
 .icon-Trail-h:before {
   content: "━";
+}
+
+.icon-TrailTurn-curvy-br:before {
+  content: "┏";
+}
+
+.icon-TrailTurn-curvy-bl:before {
+  content: "┓";
+}
+
+.icon-TrailTurn-curvy-tl:before {
+  content: "┛";
+}
+
+.icon-TrailTurn-curvy-tr:before {
+  content: "┗";
 }
