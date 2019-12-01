@@ -29,8 +29,7 @@ class Board {
 	constructor(width, height, VC, Acc, board) {
 		this.Acc = Acc;
 		this.VC = VC;
-		this.width = width;
-		this.height = height;
+		this.boardDims = { width: width, height: height };
 		this.board = board;
 		this.state = [];
 		this.running = false;
@@ -40,10 +39,10 @@ class Board {
 
 	BuildBoard(cellClickAction) {
 		var ret = "";
-		for (let r = 0; r < this.height; r++) {
+		for (let r = 0; r < this.boardDims.height; r++) {
 			ret += '<tr class="board_row">';
 			this.state[r] = [];
-			for (let i = 0; i < this.width; i++) {
+			for (let i = 0; i < this.boardDims.width; i++) {
 				ret += '<td class="board_cell icon" id="bc_x' + i + 'y' + r + '" ></td>'
 				this.state[r][i] = {};
 			}
@@ -74,8 +73,8 @@ class Board {
 	}
 
 	SynchState() {
-		for (let r = 0; r < this.height; r++) {
-			for (let i = 0; i < this.width; i++) {
+		for (let r = 0; r < this.boardDims.height; r++) {
+			for (let i = 0; i < this.boardDims.width; i++) {
 				if (this.state[r][i] != undefined) {
 					let target = $('#bc_x' + i + 'y' + r);
 					if (this.state[r][i].entity != undefined) this.state[r][i].char = this.state[r][i].entity.value;
@@ -95,7 +94,7 @@ class Board {
 	}
 
 	resizeAction() {
-		let cellDim = (window.innerHeight / this.height) * 0.8;
+		let cellDim = (window.innerHeight / this.boardDims.height) * 0.8;
 
 		let board_cell =
 			".board_cell{\n" +
@@ -105,11 +104,11 @@ class Board {
 			"max-width: " + cellDim + "px;\n" +
 			"}\n" +
 			".board_row{\n" +
-			"width: " + (cellDim * this.width) + "px;\n" +
+			"width: " + (cellDim * this.boardDims.width) + "px;\n" +
 			"}\n";
 		$("#board_styles").html(board_cell);
-		$(".board_table").height(cellDim * this.height);
-		$(".board_table").width(cellDim * this.width);
+		$(".board_table").height(cellDim * this.boardDims.height);
+		$(".board_table").width(cellDim * this.boardDims.width);
 	}
 }
 
