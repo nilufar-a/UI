@@ -103,7 +103,6 @@ class Board {
 
 	resizeAction() {
 		let cellDim = (this.VC.height / this.height) * 0.8;
-		console.log("working")
 		let board_cell =
 			".board_cell{\n" +
 			"width: " + cellDim + "px;\n" +

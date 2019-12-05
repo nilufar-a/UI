@@ -67,15 +67,22 @@
 			<div id="game_player_list">
 				<elem name="game_player_list_item">
 					<div class="game_player_list_item" id="gpli_%id%">
-						<span style="color: %color%;">%id%</span>, score: <span>%score%</span>
+						<div><span style="color: %color%;">%id%</span> <span class="icon">%boosts%</span></div>
+						<div>%score%</div>
 					</div>
 				</elem>
+			</div>
+			<div class="controls">
+				<button class="btn btn-outline-light" id="game_btn_up" value="UP">⮝</button>
+				<button class="btn btn-outline-light" id="game_btn_left" value="LEFT">⮜</button>
+				<button class="btn btn-outline-light icon icon-Boost" id="game_btn_boost" value="BOOST"></button>
+				<button class="btn btn-outline-light" id="game_btn_right" value="RIGHT">⮞</button>
+				<button class="btn btn-outline-light" id="game_btn_down" value="DOWN">⮟</button>
 			</div>
 			<div class="board">
 				<table id="game-board" class="board_table">
 				</table>
 			</div>
-
 
 		</view>
 

@@ -45,6 +45,14 @@ class GameBoard extends Board {
 	}
 
 	displayPlayerList(state) {
+
+		state.players.forEach(player => {
+			let str = "";
+			for (let i = 0; i < player.turboAmount; i++) {
+				str += iconMap.entities.powerUp + "";
+			}
+			player.boosts = str;
+		});
 		VC.DisplayList(state.players, "game_player_list_item");
 	}
 
@@ -90,7 +98,8 @@ class GameBoard extends Board {
 
 	StartGame(delay) {
 		this.running = true;
-		$(document).keydown(this.onKeyPress.bind(this));
+		$(document).keydown(this.onControlPress.bind(this));
+		$(".controls button").click(this.onControlPress.bind(this));
 		this.requestState(delay);
 	}
 
@@ -99,31 +108,43 @@ class GameBoard extends Board {
 		$(document).off("keydown");
 	}
 
-	onKeyPress(e) {
+	onControlPress(e) {
 		var move = {};
-		switch (e.keyCode) {
+		var param = "";
+		if (e.type == "keydown") {
+			param = e.keyCode;
+		} else if (e.type == "click") {
+			param = e.target.value;
+		}
+		switch (param) {
 			case 38:
 			case 87:
+			case "UP":
 				move.Direction = "UP";
 				break;
 			case 39:
 			case 68:
+			case "RIGHT":
 				move.Direction = "RIGHT";
 				break;
 			case 40:
 			case 83:
+			case "DOWN":
 				move.Direction = "DOWN";
 				break;
 			case 37:
 			case 65:
+			case "LEFT":
 				move.Direction = "LEFT";
 				break;
 			case 66:
 			case 84:
+			case "BOOST":
 				// B for boost or T for Turbo
 				move.TurboFlag = this.GameState.TurboFlag = !this.GameState.TurboFlag;
 		}
 		if (move != {}) this.postMove(move)
+		console.log(move);
 	}
 
 	requestState(delay) {
@@ -150,7 +171,7 @@ class GameBoard extends Board {
 	}
 
 	postMove(moveObject) {
-		if (moveObject.Direction != undefined || moveObject.TurboFlag) {
+		if (moveObject.Direction != undefined || moveObject.TurboFlag != undefined) {
 			$.ajax({
 				type: "POST",
 				url: "/PostMove",

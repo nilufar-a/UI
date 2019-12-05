@@ -23,6 +23,7 @@ function Main() {
     VC.ChangeView("game");
     $.getJSON("./exampleJsonFiles/gameState.json", function (json) {
         GB.LoadState(json);
+        GB.StartGame(0)
     });
 
 }
