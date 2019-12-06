@@ -20,7 +20,7 @@ function Main() {
 
 
     VC.DisplayList(list, "test_elem");
-    VC.ChangeView("game");
+    VC.ChangeView("login_page");
     $.getJSON("./exampleJsonFiles/gameState.json", function (json) {
         GB.LoadState(json);
         GB.StartGame(0)
