@@ -16,10 +16,9 @@
 	.editor_entity {
 		flex: 0;
 		@include square(60px);
-		border: 1px solid black;
 		align-items: center;
 		text-align: center;
-		font-size: 50px;
+		font-size: 36px;
 		border-radius: 3px;
 		border: 1px solid white;
 		padding: 2px;

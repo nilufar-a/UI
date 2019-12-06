@@ -153,10 +153,10 @@ class GameBoard extends Board {
 				$.ajax({
 					type: "GET",
 					url: "/GetState",
-					data: JSON.stringify(Acc.Sign({})),
 					contentType: "application/json; charset=utf-8",
 					dataType: "json",
-					success: this.procesState
+					success: this.procesState,
+					beforeSend: this.Acc.getHeaderFunction()
 				});
 			}.bind(this), delay);
 		}
@@ -175,7 +175,7 @@ class GameBoard extends Board {
 			$.ajax({
 				type: "POST",
 				url: "/PostMove",
-				data: JSON.stringify(Acc.Sign(moveObject)), // moveObject is sent, Acc.Sign() adds a "token" field for the authentication, JSON.stringify() converts object to string
+				data: JSON.stringify(moveObject), // moveObject is sent, Acc.Sign() adds a "token" field for the authentication, JSON.stringify() converts object to string
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				success: function (data) {
@@ -183,7 +183,8 @@ class GameBoard extends Board {
 				},
 				failure: function (errMsg) {
 					//error handeling
-				}
+				},
+				beforeSend: this.Acc.getHeaderFunction()
 			});
 		}
 	}

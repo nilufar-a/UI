@@ -116,7 +116,6 @@ class EditorEntityManager {
 			});
 
 			this.display();
-			console.log(this.entities);
 		}
 	}
 
@@ -201,6 +200,7 @@ class EditorConfigurationForm {
 				save: $("#editor_save_btn"),
 				update: $("#editor_update_btn"),
 				rebuild: $("#editor_rebuild_btn"),
+				json: $("#json_btn")
 			},
 			alert: {
 				check: $("#editor_alert_check"),
@@ -258,11 +258,14 @@ class EditorConfigurationForm {
 			this.UpdateMap();
 		}).bind(this));
 		this.DOMobjects.button.rebuild.click((function (e) {
-			console.log(this.EB);
 			this.EB.DistroyBoard();
 			this.EB.width = this.DOMobjects.input.width.val();
 			this.EB.height = this.DOMobjects.input.height.val();
 			this.EB.BuildBoard();
+		}).bind(this));
+		this.DOMobjects.button.json.click((function (e) {
+			console.log(JSON.stringify(this.EB.GetMapObject()));
+			alert("Printed map json to console, use developer/inspect mode to view it")
 		}).bind(this));
 	}
 
@@ -270,16 +273,15 @@ class EditorConfigurationForm {
 		$.ajax({
 			type: "GET",
 			url: "/isNameOccupied", //TODO !!!!MISIING API GATEWAY,
-			data: JSON.stringify(Acc.Sign({
-				mapid: name
-			})), //TODO MISSING REQUEST SPECIFICATION
+			data: JSON.stringify({ mapid: name }), //TODO MISSING REQUEST SPECIFICATION
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: (function (data) {
 				this.nameChecked = true;
 				this.nameOccupied = this.data.occupied;
 				this.validateAndDraw();
-			}).bind(this)
+			}).bind(this),
+			beforeSend: this.Acc.getHeaderFunction()
 		});
 	}
 
@@ -287,9 +289,9 @@ class EditorConfigurationForm {
 		$.ajax({
 			type: "GET",
 			url: "/getMap", //TODO !!!!MISIING API GATEWAY,
-			data: JSON.stringify(Acc.Sign({
+			data: JSON.stringify({
 				mapid: name
-			})), //TODO MISSING REQUEST SPECIFICATION
+			}), //TODO MISSING REQUEST SPECIFICATION
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: (function (data) {
@@ -297,7 +299,8 @@ class EditorConfigurationForm {
 				this.nameChecked = true;
 				this.nameOccupied = this.data.occupied;
 				this.validateAndDraw();
-			}).bind(this)
+			}).bind(this),
+			beforeSend: this.Acc.getHeaderFunction()
 		});
 	}
 
@@ -305,7 +308,7 @@ class EditorConfigurationForm {
 		$.ajax({
 			type: "GET",
 			url: "/uploadMap", //TODO !!!!MISIING API GATEWAY,
-			data: JSON.stringify(Acc.Sign(this.EG.GetMapObject())), //TODO MISSING REQUEST SPECIFICATION
+			data: JSON.stringify(this.EB.GetMapObject()), //TODO MISSING REQUEST SPECIFICATION
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: (function (data) {
@@ -313,7 +316,8 @@ class EditorConfigurationForm {
 				this.nameChecked = true;
 				this.nameOccupied = this.data.occupied;
 				this.validateAndDraw();
-			}).bind(this)
+			}).bind(this),
+			beforeSend: this.Acc.getHeaderFunction()
 		});
 	}
 
@@ -321,7 +325,7 @@ class EditorConfigurationForm {
 		$.ajax({
 			type: "GET",
 			url: "/updateMap", //TODO !!!!MISIING API GATEWAY,
-			data: JSON.stringify(Acc.Sign(this.EG.GetMapObject())), //TODO MISSING REQUEST SPECIFICATION
+			data: JSON.stringify(this.EB.GetMapObject()), //TODO MISSING REQUEST SPECIFICATION
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: (function (data) {
@@ -329,7 +333,8 @@ class EditorConfigurationForm {
 				this.nameChecked = true;
 				this.nameOccupied = this.data.occupied;
 				this.validateAndDraw();
-			}).bind(this)
+			}).bind(this),
+			beforeSend: this.Acc.getHeaderFunction()
 		});
 	}
 

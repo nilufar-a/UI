@@ -11,4 +11,10 @@ class Account {
 		obj.token = this.token
 		return obj;
 	}
+
+	getHeaderFunction() {
+		return function (xhr) {
+			xhr.setRequestHeader("Authorization", "Bearer " + token);
+		};
+	}
 }
