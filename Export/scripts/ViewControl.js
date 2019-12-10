@@ -61,15 +61,14 @@ class ViewControl {
 	}
 
 	ChangeView(viewName) {
-		var VC = this;
 		if (this.views[viewName] != null && viewName != this.currentView && !this.changingview) {
 			this.changingview = true;
-			this.views[this.currentView].view.hide(500, function () {
-				VC.views[viewName].view.show(500, function () {
-					VC.currentView = viewName;
-					VC.currentView = false;
-				});
-			});
+			this.views[this.currentView].view.hide(500, (function () {
+				this.views[viewName].view.show(500, (function () {
+					this.currentView = viewName;
+					this.changingview = false;
+				}).bind(this));
+			}).bind(this));
 		}
 	}
 

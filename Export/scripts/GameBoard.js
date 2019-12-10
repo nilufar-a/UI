@@ -174,7 +174,7 @@ class GameBoard extends Board {
 		if (moveObject.Direction != undefined || moveObject.TurboFlag != undefined) {
 			$.ajax({
 				type: "POST",
-				url: "/PostMove",
+				url: "/PostMove" + Acc.URIfromObject(moveObject),
 				data: JSON.stringify(moveObject), // moveObject is sent, Acc.Sign() adds a "token" field for the authentication, JSON.stringify() converts object to string
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",

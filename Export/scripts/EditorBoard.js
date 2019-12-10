@@ -272,7 +272,7 @@ class EditorConfigurationForm {
 	CheckName(name) {
 		$.ajax({
 			type: "GET",
-			url: "/isNameOccupied", //TODO !!!!MISIING API GATEWAY,
+			url: "/isNameOccupied" + Acc.URIfromObject({ mapid: name }), //TODO !!!!MISIING API GATEWAY,
 			data: JSON.stringify({ mapid: name }), //TODO MISSING REQUEST SPECIFICATION
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
@@ -288,16 +288,17 @@ class EditorConfigurationForm {
 	LoadMap(name) {
 		$.ajax({
 			type: "GET",
-			url: "/getMap", //TODO !!!!MISIING API GATEWAY,
+			url: "/getMap" + Acc.URIfromObject({ mapid: name }), //TODO !!!!MISIING API GATEWAY,
 			data: JSON.stringify({
 				mapid: name
 			}), //TODO MISSING REQUEST SPECIFICATION
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: (function (data) {
+				data = JSON.parse(data);
 				this.EB.LoadState(data);
 				this.nameChecked = true;
-				this.nameOccupied = this.data.occupied;
+				this.nameOccupied = true;
 				this.validateAndDraw();
 			}).bind(this),
 			beforeSend: this.Acc.getHeaderFunction()
@@ -306,15 +307,14 @@ class EditorConfigurationForm {
 
 	UploadMap() {
 		$.ajax({
-			type: "GET",
-			url: "/uploadMap", //TODO !!!!MISIING API GATEWAY,
+			type: "POST",
+			url: "/uploadMap" + Acc.URIfromObject({ mapid: name }), //TODO !!!!MISIING API GATEWAY,
 			data: JSON.stringify(this.EB.GetMapObject()), //TODO MISSING REQUEST SPECIFICATION
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: (function (data) {
-				this.EB.LoadState(data);
 				this.nameChecked = true;
-				this.nameOccupied = this.data.occupied;
+				this.nameOccupied = true;
 				this.validateAndDraw();
 			}).bind(this),
 			beforeSend: this.Acc.getHeaderFunction()
@@ -323,15 +323,14 @@ class EditorConfigurationForm {
 
 	UpdateMap() {
 		$.ajax({
-			type: "GET",
-			url: "/updateMap", //TODO !!!!MISIING API GATEWAY,
+			type: "POST",
+			url: "/updateMap" + Acc.URIfromObject({ mapid: name }), //TODO !!!!MISIING API GATEWAY,
 			data: JSON.stringify(this.EB.GetMapObject()), //TODO MISSING REQUEST SPECIFICATION
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: (function (data) {
-				this.EB.LoadState(data);
 				this.nameChecked = true;
-				this.nameOccupied = this.data.occupied;
+				this.nameOccupied = true;
 				this.validateAndDraw();
 			}).bind(this),
 			beforeSend: this.Acc.getHeaderFunction()
