@@ -14,7 +14,7 @@ function Main() {
     $("#goto_game_btn").click(function () {
         VC.ChangeView("game");
         GB = new GameBoard(24, 24, VC, Acc);
-        GB.StartGame(0);
+        GB.StartGame($("#game_id_input").val(), 0);
     });
     $("#goto_editor_btn").click(function () {
         VC.ChangeView("editor");

@@ -10,6 +10,7 @@ class GameBoard extends Board {
 	constructor(width, height, VC, Acc) {
 		super(width, height, VC, Acc, $("#game-board"));
 		this.running = false;
+		this.GameID = "";
 		this.GameState = { TurboFlag: false, turn: 0 }
 	}
 
@@ -96,7 +97,8 @@ class GameBoard extends Board {
 		return previus_d + "" + next_d;// texhnically valid return value that is usefull for debugging
 	}
 
-	StartGame(delay) {
+	StartGame(gameID, delay) {
+		this.GameID = gameID;
 		this.running = true;
 		$(document).keydown(this.onControlPress.bind(this));
 		$(".controls button").click(this.onControlPress.bind(this));
@@ -151,7 +153,7 @@ class GameBoard extends Board {
 			setTimeout(function () {
 				$.ajax({
 					type: "GET",
-					url: "/getcurrentStateOfMOdel",
+					url: "/getcurrentStateOfMOdel" + Acc.URIfromObject({ GameID: this.GameID }),
 					contentType: "application/json; charset=utf-8",
 					dataType: "json",
 					success: this.procesState,
