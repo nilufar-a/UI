@@ -188,6 +188,8 @@ class EditorConfigurationForm {
 		this.height = height;
 		this.EB = EB;
 		this.VC = VC;
+		this.Acc = EB.Acc;
+
 		this.DOMobjects = {
 			input: {
 				name: $("#mapName"),

@@ -144,7 +144,6 @@ class GameBoard extends Board {
 				move.TurboFlag = this.GameState.TurboFlag = !this.GameState.TurboFlag;
 		}
 		if (move != {}) this.postMove(move)
-		console.log(move);
 	}
 
 	requestState(delay) {
@@ -152,7 +151,7 @@ class GameBoard extends Board {
 			setTimeout(function () {
 				$.ajax({
 					type: "GET",
-					url: "/GetState",
+					url: "/getcurrentStateOfMOdel",
 					contentType: "application/json; charset=utf-8",
 					dataType: "json",
 					success: this.procesState,
