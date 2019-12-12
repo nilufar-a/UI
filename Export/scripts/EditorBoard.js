@@ -217,10 +217,10 @@ class EditorConfigurationForm {
 					height: undefined
 				},
 				button: {
-					load: false,
-					save: false,
-					update: false,
-					rebuild: false,
+					load: true,
+					save: true,
+					update: true,
+					rebuild: true,
 				},
 				alert: {
 					check: false,
@@ -279,6 +279,7 @@ class EditorConfigurationForm {
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: (function (data) {
+				data = JSON.parse(data);
 				this.nameChecked = true;
 				this.nameOccupied = this.data.occupied;
 				this.validateAndDraw();
@@ -325,7 +326,7 @@ class EditorConfigurationForm {
 
 	UpdateMap() {
 		$.ajax({
-			type: "POST",
+			type: "PUT",
 			url: "/updateMap" + Acc.URIfromObject({ mapid: name }), //TODO !!!!MISIING API GATEWAY,
 			data: JSON.stringify(this.EB.GetMapObject()), //TODO MISSING REQUEST SPECIFICATION
 			contentType: "application/json; charset=utf-8",
