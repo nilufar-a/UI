@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/nilufer454/UI#readme",
   "dependencies": {
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "node-sass-import-once": "^1.2.0",
     "node-sass-once-importer": "^5.3.2",
     "npm": "^6.13.0"
